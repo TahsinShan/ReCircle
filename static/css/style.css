@@ -55,28 +55,59 @@ body {
 }
 
 @media (max-width: 768px) {
-  .hamburger {
-    display: block;
+   header {
+    flex-wrap: wrap;
+    padding: 15px 20px;
   }
 
-  .nav-links {
+  nav {
     display: none;
+    width: 100%;
     flex-direction: column;
-    background-color: white;
-    position: absolute;
-    top: 70px;
-    right: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-top: 10px;
   }
 
-  .nav-links.active {
+  nav.active {
     display: flex;
   }
 
-  .nav-links a {
+  nav a {
     margin: 10px 0;
+    font-size: 18px;
+  }
+
+  .hamburger {
+    display: block;
+    cursor: pointer;
+    width: 30px;
+    height: 22px;
+    position: relative;
+  }
+
+  .hamburger span {
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background-color: #333;
+    border-radius: 2px;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hamburger span:nth-child(1) { top: 0; }
+  .hamburger span:nth-child(2) { top: 9px; }
+  .hamburger span:nth-child(3) { top: 18px; }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 9px;
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg);
+    top: 9px;
   }
 }
 
