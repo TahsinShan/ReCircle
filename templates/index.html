@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BitByte | Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+  <header class="navbar">
+  <div class="logo">🧺 BitByte</div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <nav class="nav-links" id="navLinks">
+    <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+    <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">Our Goal</a>
+    <a href="/give" class="{% if request.path == '/give' %}active{% endif %}">Give</a>
+    <a href="/receive" class="{% if request.path == '/receive' %}active{% endif %}">Receive</a>
+    <a href="/points" class="{% if request.path == '/points' %}active{% endif %}">Use Points</a>
+
+    {% if session.get('user_id') %}
+      <a href="/profile" class="{% if request.path == '/profile' %}active{% endif %}">My Profile</a>
+      <a href="/logout">Logout</a>
+    {% else %}
+      <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
+    {% endif %}
+  </nav>
+</header>
+
+
+  <section class="hero">
+    <h1>Welcome to BitByte</h1>
+    <p>Share your surplus. Support your neighborhood. Save the planet.</p>
+    <a href="/login" class="btn">Login to Get Started</a>
+  </section>
+
+  <section class="features">
+    <div class="feature-card">
+      <h3>🎁 Give Items</h3>
+      <p>Post your extra groceries and household items to help neighbors in need.</p>
+    </div>
+    <div class="feature-card">
+      <h3>📦 Receive Items</h3>
+      <p>Browse available shared items and request them easily from nearby donors.</p>
+    </div>
+    <div class="feature-card">
+      <h3>💰 Use Points</h3>
+      <p>Earn points by giving and redeem them for community rewards.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🌱 Our Goal</h3>
+      <p>Reduce waste, build stronger communities, and create a sharing culture.</p>
+    </div>
+  </section>
+
+ {% if session.get('notification') %}
+  <div class="notification">{{ session.get('notification') }}</div>
+  <script>
+    setTimeout(() => document.querySelector('.notification')?.remove(), 15000);
+  </script>
+{% endif %}
+
+
+  <footer>
+    <p>&copy; 2025 BitByte. All rights reserved.</p>
+  </footer>
+</body>
+</html>

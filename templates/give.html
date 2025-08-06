@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Give Item - BitByte</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="navbar">
+  <div class="logo">🧺 BitByte</div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <nav class="nav-links" id="navLinks">
+    <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+    <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">Our Goal</a>
+    <a href="/give" class="{% if request.path == '/give' %}active{% endif %}">Give</a>
+    <a href="/receive" class="{% if request.path == '/receive' %}active{% endif %}">Receive</a>
+    <a href="/points" class="{% if request.path == '/points' %}active{% endif %}">Use Points</a>
+
+    {% if session.get('user_id') %}
+      <a href="/profile" class="{% if request.path == '/profile' %}active{% endif %}">My Profile</a>
+      <a href="/logout">Logout</a>
+    {% else %}
+      <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
+    {% endif %}
+  </nav>
+</header>
+
+
+  <section class="form-section">
+    <h2>🎁 Give an Item</h2>
+    <p>Earn points by sharing your surplus items with your neighbors.</p>
+
+    <form action="/give" method="post" enctype="multipart/form-data" class="give-form">
+      <label for="item">Item Name</label>
+      <input type="text" id="item" name="item" placeholder="e.g. Rice, Detergent" required>
+
+      <label for="quantity">Quantity</label>
+      <input type="text" id="quantity" name="quantity" placeholder="e.g. 2 kg, 1 packet" required>
+
+      <label for="location">Your Location</label>
+      <input type="text" id="location" name="location" placeholder="e.g. Block A, Sector 4" required>
+
+      <label for="expiry">Expiry Date <small>(optional)</small></label>
+      <input type="date" id="expiry" name="expiry">
+
+      <label for="notes">Notes</label>
+      <textarea id="notes" name="notes" rows="3" placeholder="Extra info (optional)"></textarea>
+
+      <label for="volunteer">
+        <input type="checkbox" id="volunteer" name="volunteer">
+        Need Volunteer Help?
+      </label>
+
+      <label for="photo">Upload Item Photo</label>
+      <input type="file" id="photo" name="photo" accept="image/*">
+
+      <button type="submit" class="btn">Submit & Earn Points</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 BitByte. Building a generous world.</p>
+  </footer>
+</body>
+</html>

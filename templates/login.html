@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - BitByte</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+  <header class="navbar">
+  <div class="logo">🧺 BitByte</div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <nav class="nav-links" id="navLinks">
+    <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+    <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">Our Goal</a>
+    <a href="/give" class="{% if request.path == '/give' %}active{% endif %}">Give</a>
+    <a href="/receive" class="{% if request.path == '/receive' %}active{% endif %}">Receive</a>
+    <a href="/points" class="{% if request.path == '/points' %}active{% endif %}">Use Points</a>
+
+    {% if session.get('user_id') %}
+      <a href="/profile" class="{% if request.path == '/profile' %}active{% endif %}">My Profile</a>
+      <a href="/logout">Logout</a>
+    {% else %}
+      <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
+    {% endif %}
+  </nav>
+</header>
+
+
+  <section class="form-section">
+    <h2>🔐 Login to BitByte</h2>
+    <form action="/login" method="post" class="give-form">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit" class="btn">Login</button>
+    </form>
+    <p style="margin-top: 20px;">Don’t have an account? <a href="/signup">Sign up</a></p>
+  </section>
+
+{% if session.get('notification') %}
+  <div class="notification">{{ session.get('notification') }}</div>
+  <script>
+    setTimeout(() => document.querySelector('.notification')?.remove(), 15000);
+  </script>
+{% endif %}
+
+
+
+  <footer>
+    <p>&copy; 2025 BitByte. Secure and simple.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Receive Items - BitByte</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+  <header class="navbar">
+  <div class="logo">🧺 BitByte</div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <nav class="nav-links" id="navLinks">
+    <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+    <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">Our Goal</a>
+    <a href="/give" class="{% if request.path == '/give' %}active{% endif %}">Give</a>
+    <a href="/receive" class="{% if request.path == '/receive' %}active{% endif %}">Receive</a>
+    <a href="/points" class="{% if request.path == '/points' %}active{% endif %}">Use Points</a>
+
+    {% if session.get('user_id') %}
+      <a href="/profile" class="{% if request.path == '/profile' %}active{% endif %}">My Profile</a>
+      <a href="/logout">Logout</a>
+    {% else %}
+      <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
+    {% endif %}
+  </nav>
+</header>
+
+
+{% if session.get('notification') %}
+  <div class="notification">{{ session.get('notification') }}</div>
+  <script>
+    setTimeout(() => document.querySelector('.notification')?.remove(), 15000);
+  </script>
+{% endif %}
+
+
+  <section class="receive-section">
+    <h2>📦 Available Items</h2>
+    <input type="text" id="searchBar" placeholder="Search items..." onkeyup="filterItems()" />
+
+    <div class="items-grid" id="itemsGrid">
+      {% for item in items %}
+        <div class="item-card">
+          <img src="{{ url_for('static', filename='images/sample-item.jpg') }}" alt="Item Image" />
+          <div class="item-info">
+            <h3>{{ item.item }}</h3>
+            <p><strong>Location:</strong> {{ item.location }}</p>
+            {% if item.notes %}
+              <p><strong>Notes:</strong> {{ item.notes }}</p>
+            {% endif %}
+
+            {% if session.get('user_id') and session['user_id'] != item.user_id %}
+              <form action="/apply/{{ item.id }}" method="POST">
+                <button type="submit">Apply</button>
+              </form>
+            {% elif session.get('user_id') == item.user_id %}
+              <a href="/manage_requests/{{ item.id }}" class="manage-link">Manage Requests</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 BitByte. Sharing is caring.</p>
+  </footer>
+
+  <script>
+    function filterItems() {
+      const input = document.getElementById("searchBar").value.toLowerCase();
+      const cards = document.querySelectorAll(".item-card");
+
+      cards.forEach(card => {
+        const name = card.querySelector("h3").textContent.toLowerCase();
+        card.style.display = name.includes(input) ? "block" : "none";
+      });
+    }
+  </script>
+</body>
+</html>

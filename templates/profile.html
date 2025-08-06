@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Profile - BitByte</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+  <header class="navbar">
+  <div class="logo">🧺 BitByte</div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <nav class="nav-links" id="navLinks">
+    <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+    <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">Our Goal</a>
+    <a href="/give" class="{% if request.path == '/give' %}active{% endif %}">Give</a>
+    <a href="/receive" class="{% if request.path == '/receive' %}active{% endif %}">Receive</a>
+    <a href="/points" class="{% if request.path == '/points' %}active{% endif %}">Use Points</a>
+
+    {% if session.get('user_id') %}
+      <a href="/profile" class="{% if request.path == '/profile' %}active{% endif %}">My Profile</a>
+      <a href="/logout">Logout</a>
+    {% else %}
+      <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
+    {% endif %}
+  </nav>
+</header>
+
+ {% if accepted_item_id %}
+  <div class="notification">
+    🎉 Congratulations! Your request for item #{{ accepted_item_id }} has been accepted!
+    <button onclick="this.parentElement.remove()">×</button>
+  </div>
+  <script>
+    setTimeout(() => {
+      document.querySelector('.notification')?.remove();
+    }, 15000);
+  </script>
+{% endif %}
+
+
+  <section class="form-section">
+    <h2>Hello, {{ user[0] }} 👋</h2>
+    <p>Email: {{ user[1] }}</p>
+    <p>Points: <strong>{{ user[2] }}</strong></p>
+    <hr style="margin: 30px 0;">
+
+    <h3>Your Shared Items</h3>
+    {% if posts %}
+      {% for post in posts %}
+        <div class="item-card" style="margin-bottom: 20px;">
+          <h4>{{ post[1] }}</h4>
+          <p><strong>Location:</strong> {{ post[2] }}</p>
+          <p><strong>Expiry:</strong> {{ post[3] or 'N/A' }}</p>
+          <p><strong>Notes:</strong> {{ post[4] or 'None' }}</p>
+          
+          <form action="/delete/{{ post[0] }}" method="post" style="margin-top: 10px;">
+            <button type="submit" class="btn" style="background-color: #e74c3c;">Delete</button>
+          </form>
+
+          <!-- ✅ Link to manage requests -->
+          <a href="/manage_requests/{{ post[0] }}" class="btn" style="display: inline-block; margin-top: 10px; background-color: #3498db; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px;">
+            Manage Requests
+          </a>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>You haven’t shared any items yet.</p>
+    {% endif %}
+  </section>
+
+  <footer>
+    <p>&copy; 2025 BitByte. Helping hands, connected.</p>
+  </footer>
+</body>
+</html>

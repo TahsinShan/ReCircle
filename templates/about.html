@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Our Goal - BitByte</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+  <header class="navbar">
+  <div class="logo">🧺 BitByte</div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <nav class="nav-links" id="navLinks">
+    <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+    <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">Our Goal</a>
+    <a href="/give" class="{% if request.path == '/give' %}active{% endif %}">Give</a>
+    <a href="/receive" class="{% if request.path == '/receive' %}active{% endif %}">Receive</a>
+    <a href="/points" class="{% if request.path == '/points' %}active{% endif %}">Use Points</a>
+
+    {% if session.get('user_id') %}
+      <a href="/profile" class="{% if request.path == '/profile' %}active{% endif %}">My Profile</a>
+      <a href="/logout">Logout</a>
+    {% else %}
+      <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
+    {% endif %}
+  </nav>
+</header>
+
+  <section class="text-page">
+    <h2>🌍 Our Goal</h2>
+    <p>
+      BitByte is a non-profit platform built to connect neighbors through sharing.
+      We believe that helping each other with surplus items can strengthen communities
+      and reduce waste at the same time.
+    </p>
+    <p>
+      Whether you're donating food or picking up essentials, you’re contributing to a better world —
+      one item at a time.
+    </p>
+    <p>
+      Our mission is simple: <strong>Share. Support. Save.</strong>
+    </p>
+  </section>
+
+{% if session.get('notification') %}
+  <div class="notification">{{ session.get('notification') }}</div>
+  <script>
+    setTimeout(() => document.querySelector('.notification')?.remove(), 15000);
+  </script>
+{% endif %}
+
+
+
+  <footer>
+    <p>&copy; 2025 BitByte. Making neighborhoods stronger.</p>
+  </footer>
+</body>
+</html>

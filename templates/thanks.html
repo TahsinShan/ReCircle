@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thanks - BitBasket</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Thank you!</h1>
+    <p>Your submission was received. You’re helping the community 💙</p>
+    <a href="/">Back to Home</a>
+
+    {% if session.get('notification') %}
+  <div class="notification">{{ session.get('notification') }}</div>
+  <script>
+    setTimeout(() => document.querySelector('.notification')?.remove(), 15000);
+  </script>
+{% endif %}
+
+
+</body>
+</html>
