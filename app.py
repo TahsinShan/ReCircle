@@ -62,6 +62,10 @@ def about():
 def points():
     return render_template('points.html')
 
+@app.route('/events')
+def events():
+    return render_template('events.html')
+
 
 @app.route('/thanks')
 def thanks():

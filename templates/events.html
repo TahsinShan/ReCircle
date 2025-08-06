@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BitByte | Home</title>
+  <title>BitByte | Events & Notices</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
@@ -33,42 +33,50 @@
   </nav>
 </header>
 
-
-  <section class="hero">
-    <h1>Welcome to BitByte</h1>
-    <p>Share your surplus. Support your neighborhood. Save the planet.</p>
-    <a href="/login" class="btn">Login to Get Started</a>
+  <section class="page-hero">
+    <h1>Community Notices & Events</h1>
+    <p>Stay informed about upcoming activities, drives, and important announcements.</p>
   </section>
 
-  <section class="features">
-    <div class="feature-card">
-      <h3>🎁 Give Items</h3>
-      <p>Post your extra groceries and household items to help neighbors in need.</p>
-    </div>
-    <div class="feature-card">
-      <h3>📦 Receive Items</h3>
-      <p>Browse available shared items and request them easily from nearby donors.</p>
-    </div>
-    <div class="feature-card">
-      <h3>💰 Use Points</h3>
-      <p>Earn points by giving and redeem them for community rewards.</p>
-    </div>
-    <div class="feature-card">
-      <h3>🌱 Our Goal</h3>
-      <p>Reduce waste, build stronger communities, and create a sharing culture.</p>
+  <section class="notices-section">
+    <input type="text" id="searchNotices" placeholder="Search events..." oninput="filterNotices()">
+    <div class="notices-grid" id="noticesGrid">
+      <div class="notice-card">
+        <h3>🗓️ Food Sharing Drive</h3>
+        <p>Date: August 15, 2025</p>
+        <p>Location: Community Hall</p>
+        <p>Join us in distributing surplus groceries to families in need.</p>
+      </div>
+      <div class="notice-card">
+        <h3>🌿 Neighborhood Cleanup</h3>
+        <p>Date: August 20, 2025</p>
+        <p>Location: Riverside Park</p>
+        <p>Let's clean up and make our surroundings greener and cleaner.</p>
+      </div>
+      <div class="notice-card">
+        <h3>📣 Volunteer Meeting</h3>
+        <p>Date: August 25, 2025</p>
+        <p>Location: BitByte HQ</p>
+        <p>Planning session for upcoming sharing initiatives. All are welcome!</p>
+      </div>
+      <!-- Add more events here -->
     </div>
   </section>
-
- {% if session.get('notification') %}
-  <div class="notification">{{ session.get('notification') }}</div>
-  <script>
-    setTimeout(() => document.querySelector('.notification')?.remove(), 15000);
-  </script>
-{% endif %}
-
 
   <footer>
     <p>&copy; 2025 BitByte. All rights reserved.</p>
   </footer>
+
+  <script>
+    function filterNotices() {
+      const input = document.getElementById("searchNotices").value.toLowerCase();
+      const cards = document.getElementById("noticesGrid").children;
+
+      for (let card of cards) {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(input) ? "block" : "none";
+      }
+    }
+  </script>
 </body>
 </html>
