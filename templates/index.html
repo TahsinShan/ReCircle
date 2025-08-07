@@ -35,10 +35,13 @@
 
 
   <section class="hero">
-    <h1>Welcome to BitByte</h1>
-    <p>Share your surplus. Support your neighborhood. Save the planet.</p>
+  <h1>Welcome to BitByte</h1>
+  <p>Share your surplus. Support your neighborhood. Save the planet.</p>
+  {% if not session.get('user_id') %}
     <a href="/login" class="btn">Login to Get Started</a>
-  </section>
+  {% endif %}
+</section>
+
 
   <section class="features">
     <div class="feature-card">
