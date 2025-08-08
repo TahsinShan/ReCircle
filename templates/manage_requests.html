@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Manage Requests - BitByte</title>
+  <title>Manage Requests - ReCircle</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
@@ -33,7 +33,7 @@
 
 
   <section class="form-section">
-    <h2>📋 Applications for Your Item</h2>
+    <h2>📋 Applications for Your Spark</h2>
 
     {% if applications %}
       {% for receiver_id, name, status in applications %}
@@ -56,7 +56,7 @@
         </div>
       {% endfor %}
     {% else %}
-      <p>No one has applied for this item yet.</p>
+      <p>No one has applied for this spark yet.</p>
     {% endif %}
   </section>
 
@@ -69,7 +69,7 @@
 
 
   <footer>
-    <p>&copy; 2025 BitByte. Sharing is caring.</p>
+    <p>&copy; 2025 ReCircle. Sharing is caring.</p>
   </footer>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Give Item - BitByte</title>
+  <title>Send a Spark- ReCircle</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
@@ -33,8 +33,8 @@
   </header>
 
   <section class="form-section">
-    <h2>🎁 Give an Item</h2>
-    <p>Earn points by sharing your surplus items with your neighbors.</p>
+    <h2>🎁 Send a Spark</h2>
+    <p>Earn Spark points by sharing your surplus items with your neighbors.</p>
 
     <form action="/give" method="post" enctype="multipart/form-data" class="give-form">
       <label for="item">Item Name</label>
@@ -60,12 +60,12 @@
       <label for="photo">Upload Item Photo</label>
       <input type="file" id="photo" name="photo" accept="image/*">
 
-      <button type="submit" class="btn">Submit & Earn Points</button>
+      <button type="submit" class="btn">Submit</button>
     </form>
   </section>
 
   <footer>
-    <p>&copy; 2025 BitByte. Building a generous world.</p>
+    <p>&copy; 2025 ReCircle. Building a generous world.</p>
   </footer>
 </body>
 </html>
