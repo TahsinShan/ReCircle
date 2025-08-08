@@ -3,75 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BitByte | Home</title>
+  <title>ReCircle | Send a Spark</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 <body>
   <header class="navbar">
-  <div class="logo">🧺 BitByte</div>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <nav class="nav-links" id="navLinks">
-    <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
-    <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">Our Goal</a>
-    <a href="/give" class="{% if request.path == '/give' %}active{% endif %}">Give</a>
-    <a href="/receive" class="{% if request.path == '/receive' %}active{% endif %}">Receive</a>
-    <a href="/points" class="{% if request.path == '/points' %}active{% endif %}">Use Points</a>
-    <a href="/events" class="{% if request.path == '/events' %}active{% endif %}">Events</a>
+    <div class="logo">✨ ReCircle</div>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+      <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">Our Purpose</a>
+      <a href="/give" class="{% if request.path == '/give' %}active{% endif %}">Send a Spark</a>
+      <a href="/receive" class="{% if request.path == '/receive' %}active{% endif %}">Catch a Spark</a>
+      <a href="/points" class="{% if request.path == '/points' %}active{% endif %}">Spark Points</a>
+      <a href="/events" class="{% if request.path == '/events' %}active{% endif %}">Events</a>
 
-    {% if session.get('user_id') %}
-      <a href="/profile" class="{% if request.path == '/profile' %}active{% endif %}">My Profile</a>
-      <a href="/logout">Logout</a>
-    {% else %}
-      <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
-    {% endif %}
-  </nav>
-</header>
-
+      {% if session.get('user_id') %}
+        <a href="/profile" class="{% if request.path == '/profile' %}active{% endif %}">My Space</a>
+        <a href="/logout">Logout</a>
+      {% else %}
+        <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
+      {% endif %}
+    </nav>
+  </header>
 
   <section class="hero">
-  <h1>Welcome to BitByte</h1>
-  <p>Share your surplus. Support your neighborhood. Save the planet.</p>
-  {% if not session.get('user_id') %}
-    <a href="/login" class="btn">Login to Get Started</a>
-  {% endif %}
-</section>
-
+    <h1>Welcome to ReCircle</h1>
+    <p>Send a Spark. Light a smile. Keep the circle glowing.</p>
+    {% if not session.get('user_id') %}
+      <a href="/login" class="btn">Join as a Kindler</a>
+    {% endif %}
+  </section>
 
   <section class="features">
     <div class="feature-card">
-      <h3>🎁 Give Items</h3>
-      <p>Post your extra groceries and household items to help neighbors in need.</p>
+      <h3>✨ Send a Spark</h3>
+      <p>Have something useful? Share it as a Spark to brighten someone’s day.</p>
     </div>
     <div class="feature-card">
-      <h3>📦 Receive Items</h3>
-      <p>Browse available shared items and request them easily from nearby donors.</p>
+      <h3>💫 Catch a Spark</h3>
+      <p>Browse nearby Sparks shared by fellow Kindlers — take what helps you thrive.</p>
     </div>
     <div class="feature-card">
-      <h3>💰 Use Points</h3>
-      <p>Earn points by giving and redeem them for community rewards.</p>
+      <h3>🔥 Spark Points</h3>
+      <p>Every spark you send adds up! Earn Spark Points and unlock joyful rewards.</p>
     </div>
     <div class="feature-card">
-      <h3>🌱 Our Goal</h3>
-      <p>Reduce waste, build stronger communities, and create a sharing culture.</p>
+      <h3>🌍 Our Purpose</h3>
+      <p>ReCircle is on a mission to reduce waste, foster kindness, and spark change.</p>
     </div>
   </section>
 
- {% if session.get('notification') %}
-  <div class="notification">{{ session.get('notification') }}</div>
-  <script>
-    setTimeout(() => document.querySelector('.notification')?.remove(), 15000);
-  </script>
-{% endif %}
 
+  <section class="how-it-works">
+  <h2>How ReCircle Works</h2>
+  <div class="steps">
+    <div class="step">
+      <h3>1. Become a Kindler 🔥</h3>
+      <p>Create an account to join the ReCircle community of Kindlers—people who spark joy by sharing what they have.</p>
+    </div>
+    <div class="step">
+      <h3>2. Send or Catch a Spark ✨</h3>
+      <p>Got extra food or useful items? Post them as Sparks. Need something? Catch a Spark shared by someone nearby.</p>
+    </div>
+    <div class="step">
+      <h3>3. Earn Spark Points 💎</h3>
+      <p>Giving feels good—and earns you points! Redeem Spark Points for exclusive rewards, or just enjoy the good vibes.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lingo">
+  <h2>🌟 Lingo Decoder</h2>
+  <p><strong>Kindler:</strong> That’s you! A member of ReCircle who sparks change by giving or receiving.</p>
+  <p><strong>Spark:</strong> Any item shared on ReCircle—could be a snack, a shirt, or even a smile in a bag!</p>
+  <p><strong>Spark Points:</strong> You earn these when you send Sparks. Use them to unlock rewards or perks.</p>
+</section>
+
+
+  {% if session.get('notification') %}
+    <div class="notification">{{ session.get('notification') }}</div>
+    <script>
+      setTimeout(() => document.querySelector('.notification')?.remove(), 15000);
+    </script>
+  {% endif %}
 
   <footer>
-    <p>&copy; 2025 BitByte. All rights reserved.</p>
+    <p>&copy; 2025 ReCircle. Send a Spark. Keep it glowing.</p>
   </footer>
 </body>
 </html>

@@ -1,9 +1,15 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 import sqlite3
+import os
 
 app = Flask(__name__)
 app.secret_key = 'super-secret-key'
+
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
 def init_db():
@@ -29,6 +35,7 @@ def init_db():
             item TEXT,
             expiry TEXT,
             notes TEXT,
+            image_filename TEXT,
             FOREIGN KEY (user_id) REFERENCES users(id)
         )
     ''')
@@ -110,7 +117,6 @@ def login():
         c.execute('SELECT id, name, password FROM users WHERE email = ?', (email,))
         user = c.fetchone()
 
-        # Check for any accepted applications before clearing DB
         accepted_item_id = None
         if user:
             c.execute('''
@@ -155,13 +161,21 @@ def give():
         expiry = request.form.get('expiry', '')
         notes = request.form.get('notes', '')
 
+        image_file = request.files.get('photo')
+        image_filename = None
+        if image_file and image_file.filename != '':
+            filename = secure_filename(image_file.filename)
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            image_file.save(image_path)
+            image_filename = filename
+
         conn = sqlite3.connect('database.db')
         c = conn.cursor()
 
         c.execute('''
-            INSERT INTO items (user_id, name, location, item, expiry, notes)
-            VALUES (?, ?, ?, ?, ?, ?)
-        ''', (user_id, name, location, item, expiry, notes))
+            INSERT INTO items (user_id, name, location, item, expiry, notes, image_filename)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        ''', (user_id, name, location, item, expiry, notes, image_filename))
 
         c.execute('UPDATE users SET points = points + 5 WHERE id = ?', (user_id,))
         conn.commit()
@@ -179,12 +193,19 @@ def receive():
 
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
-    c.execute('SELECT id, item, location, notes, user_id FROM items')
+    c.execute('SELECT id, item, location, notes, user_id, image_filename FROM items')
     rows = c.fetchall()
     conn.close()
 
     items = [
-        {'id': row[0], 'item': row[1], 'location': row[2], 'notes': row[3], 'user_id': row[4]}
+        {
+            'id': row[0],
+            'item': row[1],
+            'location': row[2],
+            'notes': row[3],
+            'user_id': row[4],
+            'image': row[5]
+        }
         for row in rows
     ]
     return render_template('receive.html', items=items)
@@ -269,7 +290,6 @@ def profile():
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
 
-    # Check for new accepted applications
     c.execute('''
         SELECT item_id FROM applications
         WHERE receiver_id = ? AND status = 'accepted'
@@ -281,7 +301,6 @@ def profile():
     if accepted:
         accepted_item_id = accepted[0]
 
-    # Load user and posts
     c.execute('SELECT name, email, points FROM users WHERE id = ?', (user_id,))
     user = c.fetchone()
     c.execute('SELECT id, item, location, expiry, notes FROM items WHERE user_id = ?', (user_id,))

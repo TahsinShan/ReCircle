@@ -3,68 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BitByte | Events & Notices</title>
+  <title>ReCircle | Sparks & Gatherings</title> <!-- 💬 Updated title -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 <body>
   <header class="navbar">
-  <div class="logo">🧺 BitByte</div>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <nav class="nav-links" id="navLinks">
-    <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
-    <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">Our Goal</a>
-    <a href="/give" class="{% if request.path == '/give' %}active{% endif %}">Give</a>
-    <a href="/receive" class="{% if request.path == '/receive' %}active{% endif %}">Receive</a>
-    <a href="/points" class="{% if request.path == '/points' %}active{% endif %}">Use Points</a>
-    <a href="/events" class="{% if request.path == '/events' %}active{% endif %}">Events</a>
+    <div class="logo">✨ ReCircle</div>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+      <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">Our Purpose</a>
+      <a href="/give" class="{% if request.path == '/give' %}active{% endif %}">Send a Spark</a>
+      <a href="/receive" class="{% if request.path == '/receive' %}active{% endif %}">Catch a Spark</a>
+      <a href="/points" class="{% if request.path == '/points' %}active{% endif %}">Spark Points</a>
+      <a href="/events" class="{% if request.path == '/events' %}active{% endif %}">Events</a>
 
-    {% if session.get('user_id') %}
-      <a href="/profile" class="{% if request.path == '/profile' %}active{% endif %}">My Profile</a>
-      <a href="/logout">Logout</a>
-    {% else %}
-      <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
-    {% endif %}
-  </nav>
-</header>
+      {% if session.get('user_id') %}
+        <a href="/profile" class="{% if request.path == '/profile' %}active{% endif %}">My Space</a>
+        <a href="/logout">Logout</a>
+      {% else %}
+        <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
+      {% endif %}
+    </nav>
+  </header>
 
   <section class="page-hero">
-    <h1>Community Notices & Events</h1>
-    <p>Stay informed about upcoming activities, drives, and important announcements.</p>
+    <h1>Sparks & Community Gatherings</h1> <!-- 💬 Updated heading -->
+    <p>Find upcoming drives, meetups, and announcements that bring Kindlers together.</p> <!-- 💬 Rewritten description -->
   </section>
 
   <section class="notices-section">
-    <input type="text" id="searchNotices" placeholder="Search events..." oninput="filterNotices()">
+    <input type="text" id="searchNotices" placeholder="Search Sparks or Gatherings..." oninput="filterNotices()"> <!-- 💬 Input placeholder updated -->
     <div class="notices-grid" id="noticesGrid">
       <div class="notice-card">
-        <h3>🗓️ Food Sharing Drive</h3>
+        <h3>🧺 Sharing Spark Drive</h3> <!-- 💬 'Food Sharing Drive' -> themed -->
         <p>Date: August 15, 2025</p>
         <p>Location: Community Hall</p>
-        <p>Join us in distributing surplus groceries to families in need.</p>
+        <p>Let’s light up lives! Drop off or pick up extra groceries to spark joy in someone’s day.</p> <!-- 💬 Reworded with emotion -->
       </div>
       <div class="notice-card">
-        <h3>🌿 Neighborhood Cleanup</h3>
+        <h3>🌱 ReCircle Cleanup</h3> <!-- 💬 Themed title -->
         <p>Date: August 20, 2025</p>
         <p>Location: Riverside Park</p>
-        <p>Let's clean up and make our surroundings greener and cleaner.</p>
+        <p>Be a Kindler for the planet! Help clean and green up our shared spaces.</p> <!-- 💬 Rewritten text -->
       </div>
       <div class="notice-card">
-        <h3>📣 Volunteer Meeting</h3>
+        <h3>🧠 Kindler Meetup</h3> <!-- 💬 'Volunteer Meeting' -> themed -->
         <p>Date: August 25, 2025</p>
-        <p>Location: BitByte HQ</p>
-        <p>Planning session for upcoming sharing initiatives. All are welcome!</p>
+        <p>Location: ReCircle HQ</p>
+        <p>Meet fellow Kindlers, share ideas, and plan our next wave of sparks together!</p> <!-- 💬 Rewritten text -->
       </div>
       <!-- Add more events here -->
     </div>
   </section>
 
   <footer>
-    <p>&copy; 2025 BitByte. All rights reserved.</p>
+    <p>&copy; 2025 ReCircle. Spread the Spark. All rights reserved.</p> <!-- 💬 Updated footer -->
   </footer>
 
   <script>
