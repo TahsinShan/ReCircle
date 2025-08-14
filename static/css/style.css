@@ -551,3 +551,20 @@ footer {
   margin: 0.5rem auto;
   font-size: 1rem;
 }
+
+
+@media (max-width: 480px) {
+  .form-section {
+    padding: 20px 15px;
+  }
+  .give-form input,
+  .give-form textarea,
+  #searchBar {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+  .give-form .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
