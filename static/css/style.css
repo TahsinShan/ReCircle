@@ -33,6 +33,16 @@ body {
   color: #27ae60;
 }
 
+.logotext {
+  text-decoration: none;
+  color: inherit;
+}
+
+.logotext:hover {
+  color: #011863;
+}
+
+
 .nav-links a {
   margin-left: 20px;
   text-decoration: none;
