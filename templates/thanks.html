@@ -3,11 +3,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ReCircle | Thanks</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <header class="navbar">
+    <div class="logo"> <a href="/" class="logotext">ReCircle</a></div>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+      <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">Our Purpose</a>
+      <a href="/give" class="{% if request.path == '/give' %}active{% endif %}">Send a Spark</a>
+      <a href="/receive" class="{% if request.path == '/receive' %}active{% endif %}">Catch a Spark</a>
+      <a href="/points" class="{% if request.path == '/points' %}active{% endif %}">Spark Points</a>
+      <a href="/events" class="{% if request.path == '/events' %}active{% endif %}">Events</a>
+
+      {% if session.get('user_id') %}
+        <a href="/profile" class="{% if request.path == '/profile' %}active{% endif %}">My Space</a>
+        <a href="/logout">Logout</a>
+      {% else %}
+        <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
+      {% endif %}
+    </nav>
+  </header>
+
     <h1>Thank you!</h1>
     <p>Your submission was received. You’re helping the community 💙</p>
     <a href="/">Back to Home</a>
